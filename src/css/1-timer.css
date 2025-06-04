@@ -1,5 +1,6 @@
 @import url('./styles.css');
 
+
 .timer {
     display: flex;
     flex-direction: row;
@@ -35,6 +36,7 @@ font-size: 16px;
 line-height: 150%;
 letter-spacing: 0.04em;
 margin-bottom: 32px;
+margin-top: 20px;
 }
 
 input:hover {
