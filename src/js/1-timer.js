@@ -1,6 +1,10 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
+
+
 const startBtn = document.querySelector('[data-start]');
 const dateInput = document.querySelector('#datetime-picker');
 const daysSpan = document.querySelector('[data-days]');
@@ -20,26 +24,34 @@ const options = {
     console.log(selectedDates[0]);
     userSelectedDate = selectedDates[0];
     if (userSelectedDate <= new Date()) {
-        window.alert("Please choose a date in the future");
+        iziToast.error({
+            message: "Please choose a date in the future",
+            position: "topRight",
+            closeOnClick: true, // при кліку на саме сповіщення закриває його (тобто не лише по кнопці "закрити" або свайпу)
+        })
+        // window.alert("Please choose a date in the future");
     } else {startBtn.disabled = false;}
   },
 };
 
-flatpickr(dateInput, options);
+flatpickr('#datetime-picker', options);
 
 let userSelectedDate;
 let countdownInterval;
 
 startBtn.disabled = true;
 
-startBtn.addEventListener('click', () => {
+startBtn.addEventListener('click', (event) => {
   if (!userSelectedDate) return;
+  event.preventDefault();
 
     startBtn.disabled = true;
 
   clearInterval(countdownInterval);
 
   countdownInterval = setInterval(() => {
+
+    dateInput.disabled = true;
     
     const dateNow = new Date();
     const delta = userSelectedDate - dateNow;
@@ -47,6 +59,7 @@ startBtn.addEventListener('click', () => {
     if (delta <= 0) {
       clearInterval(countdownInterval);
       update(0);
+      dateInput.disabled = false;
       return;
     }
 
