@@ -20,7 +20,7 @@ const options = {
     console.log(selectedDates[0]);
     userSelectedDate = selectedDates[0];
     if (userSelectedDate <= new Date()) {
-        window.alert("Please choose a date in the future.");
+        window.alert("Please choose a date in the future");
     } else {startBtn.disabled = false;}
   },
 };
