@@ -3,28 +3,35 @@ import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
 
-const delayInput = document.querySelector('.delay');
-const promiseInput = document.querySelector('.promise-state');
-const createBtn = document.querySelector('.notif-btn');
+const form = document.querySelector('.form')
+// const delayInput = document.querySelector('input[name="delay"]');
+// const promiseInput = document.querySelector('input[name="state"]');
+// const createBtn = document.querySelector('.notif-btn');
 
-let isSuccess;
-let delay;
+// let isSuccess;
+// let delay;
 
-delayInput.addEventListener('input', (evt) => {
-    delay = evt.currentTarget.value;
-})
+// delayInput.addEventListener('input', (evt) => {
+//     delay = evt.currentTarget.value;
+// })
 
-promiseInput.addEventListener('change', (event) => {
-    if (event.target.value === 'fulfilled') {
-        isSuccess = true;
-    } else if(event.target.value === 'rejected') {isSuccess = false;}
-})
+// promiseInput.addEventListener('change', (event) => {
+//     if (event.target.value === 'fulfilled') {
+//         isSuccess = true;
+//     } else if(event.target.value === 'rejected') {isSuccess = false;}
+// })
 
-createBtn.addEventListener('click', (evt) => {
-    evt.preventDefault();
+
+
+form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const delay = Number(form.elements.delay.value);
+    const state = form.elements.state.value;
+
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
-            if(isSuccess) {
+            if(state === "fulfilled") {
                 resolve();
             } else {
                 reject();
